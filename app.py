@@ -4,8 +4,11 @@ import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func
+import sqlite3
+import csv
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, url_for
+from flask_cors import CORS
 
 
 #################################################
@@ -25,6 +28,7 @@ Survive = Base.classes.survive
 # Flask Setup
 #################################################
 app = Flask(__name__)
+CORS(app)
 
 
 #################################################
@@ -33,6 +37,12 @@ app = Flask(__name__)
 
 @app.route("/")
 def welcome():
+#     con = sqlite3.connect("new.sqlite")  
+#     con.row_factory = sqlite3.Row  
+#     cur = con.cursor()  
+#     cur.execute("select * from survive")  
+#     rows = cur.fetchall()  
+#     return render_template("index2.html",rows = rows)  
     return render_template('index.html')
 
 
@@ -73,7 +83,7 @@ def survivors():
         s_dict["survival"] = survival
         s_dict["organ"] = organ
         all_survivors.append(s_dict)
-       
+
     # for record in data:
     #     print(record)
     return jsonify(all_survivors)

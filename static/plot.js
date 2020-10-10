@@ -1,9 +1,12 @@
-d3.json("http://localhost:5000/api/v1.0/survivors").then((data) => {
+d3.json("http://127.0.0.1:5000/api/v1.0/survivors").then((data) => {
   //  Create the Traces
-  console.log(data)
+  // data = object.assign(data1)
+  // var data = Object.assign({}, data1)
+
+  // console.log(data)
   var trace1 = {
     x: data.organ,
-    y: data.survival.map(val => Math.sqrt(val)),
+    y: data.survival,
     type: "box",
     name: "Cancer Survival",
     boxpoints: "all"
