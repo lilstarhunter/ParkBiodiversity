@@ -22,7 +22,7 @@ Base = automap_base()
 Base.prepare(engine, reflect=True)
 
 # Save reference to the table
-Survive = Base.classes.survive
+Coi_data = Base.classes.coi_data
 
 #################################################
 # Flask Setup
@@ -72,21 +72,26 @@ def survivors():
 
     # """Return a list of passenger data including the name, age, and sex of each passenger"""
     # Query all passengers
-    survives = session.query(Survive.survival, Survive.organ).all()
-
-    session.close()
+    coi_data = session.query(Coi_data._id, Coi_data.geoid, Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
+        #  Coi_data.msaname15, Coi_data.statefips, Coi_data.stateusps, Coi_data.pop, Coi_data.z_HE_nat,\
+        #       Coi_data.z_COI_nat, Coi_data.c5_HE_nat, Coi_data.c5_COI_nat, Coi_data.c5_HE_stt, Coi_data.c5_COI_stt ).all()
+    print(coi_data)
+    session.close()  
 
     # Create a dictionary from the row data and append to a list of all_passengers
-    all_survivors = []
-    for survival, organ in survives:
+    all_coi_data = {}
+    for _id, geoid, year, in100, msaid15 in coi_data:
         s_dict = {}
-        s_dict["survival"] = survival
-        s_dict["organ"] = organ
-        all_survivors.append(s_dict)
+        s_dict["_id"] = _id
+        s_dict["geoid"] = geoid
+        s_dict["year"] = year
+        s_dict["in100"] = in100
+        s_dict["msaid15"] = msaid15
+        all_coi_data.append(s_dict)
 
-    # for record in data:
-    #     print(record)
-    return jsonify(all_survivors)
+    # for a in all_coi_data:
+    #     print(a)
+    return jsonify(all_coi_data)
 
 
 if __name__ == '__main__':
