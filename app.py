@@ -33,10 +33,11 @@ app = Flask(__name__)
 CORS(app)
 
 ##############
-#dump table info to json files
+# dump table info to json files
 #######
 session = Session(engine)
-coi_data = session.query(Coi_data._id, Coi_data.geoid, Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
+coi_data = session.query(Coi_data._id, Coi_data.geoid,
+                         Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
 session.close()
 all_coi_data = []
 for _id, geoid, year, in100, msaid15 in coi_data:
@@ -47,7 +48,7 @@ for _id, geoid, year, in100, msaid15 in coi_data:
     s_dict["in100"] = in100
     s_dict["msaid15"] = msaid15
     all_coi_data.append(s_dict)
-    
+
 mydict_ = defaultdict(list)
 
 for x in all_coi_data:
@@ -67,12 +68,12 @@ with open(jsonfile, 'w', encoding='utf-8') as jsonf:
 
 @app.route("/")
 def welcome():
-#     con = sqlite3.connect("new.sqlite")  
-#     con.row_factory = sqlite3.Row  
-#     cur = con.cursor()  
-#     cur.execute("select * from survive")  
-#     rows = cur.fetchall()  
-#     return render_template("index2.html",rows = rows)  
+    #     con = sqlite3.connect("new.sqlite")
+    #     con.row_factory = sqlite3.Row
+    #     cur = con.cursor()
+    #     cur.execute("select * from survive")
+    #     rows = cur.fetchall()
+    #     return render_template("index2.html",rows = rows)
     return render_template('index2.html')
 
 
@@ -102,11 +103,12 @@ def survivors():
 
     # """Return a list of passenger data including the name, age, and sex of each passenger"""
     # Query all passengers
-    coi_data = session.query(Coi_data._id, Coi_data.geoid, Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
-        #  Coi_data.msaname15, Coi_data.statefips, Coi_data.stateusps, Coi_data.pop, Coi_data.z_HE_nat,\
-        #       Coi_data.z_COI_nat, Coi_data.c5_HE_nat, Coi_data.c5_COI_nat, Coi_data.c5_HE_stt, Coi_data.c5_COI_stt ).all()
-    #print(coi_data)
-    session.close()  
+    coi_data = session.query(Coi_data._id, Coi_data.geoid,
+                             Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
+    #  Coi_data.msaname15, Coi_data.statefips, Coi_data.stateusps, Coi_data.pop, Coi_data.z_HE_nat,\
+    #       Coi_data.z_COI_nat, Coi_data.c5_HE_nat, Coi_data.c5_COI_nat, Coi_data.c5_HE_stt, Coi_data.c5_COI_stt ).all()
+    # print(coi_data)
+    session.close()
 
     # Create a dictionary from the row data and append to a list of all_passengers
     all_coi_data = []
@@ -118,14 +120,13 @@ def survivors():
         s_dict["in100"] = in100
         s_dict["msaid15"] = msaid15
         all_coi_data.append(s_dict)
-        
+
     mydict_ = defaultdict(list)
 
     for x in all_coi_data:
         for k, v in x.items():
             mydict_[k].append(v)
     mydict = dict(mydict_)
-    
 
     # jsonfile = r'data/new.json'
     # with open(jsonfile, 'w', encoding='utf-8') as jsonf:
@@ -134,7 +135,7 @@ def survivors():
 
     # for a in all_coi_data:
     #     print(a)
-    #return jsonify(all_coi_data)
+    # return jsonify(all_coi_data)
 
 
 if __name__ == '__main__':
