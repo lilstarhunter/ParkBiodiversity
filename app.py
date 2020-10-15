@@ -77,6 +77,15 @@ def welcome():
     return render_template('test.html')
 
 
+@app.route("/map")
+def map():
+    #     con = sqlite3.connect("new.sqlite")
+    #     con.row_factory = sqlite3.Row
+    #     cur = con.cursor()
+    #     cur.execute("select * from survive")
+    #     rows = cur.fetchall()
+    #     return render_template("index2.html",rows = rows)
+    return render_template('map.html')
 # @app.route("/api/v1.0/names")
 # def names():
 #     # Create our session (link) from Python to the DB

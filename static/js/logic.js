@@ -2,7 +2,7 @@
 
 var myMap = L.map("map", {
   center: [45.52, -122.67],
-  zoom: 13,
+  zoom: 3,
 });
 
 // Adding a tile layer (the background map image) to our map
@@ -19,3 +19,8 @@ L.tileLayer(
     accessToken: API_KEY,
   }
 ).addTo(myMap);
+
+var data = "../data/new.json";
+d3.json(data, function (response) {
+  console.log(response);
+});
