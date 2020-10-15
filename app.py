@@ -74,7 +74,7 @@ def welcome():
     #     cur.execute("select * from survive")
     #     rows = cur.fetchall()
     #     return render_template("index2.html",rows = rows)
-    return render_template('index2.html')
+    return render_template('test.html')
 
 
 # @app.route("/api/v1.0/names")
