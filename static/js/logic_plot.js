@@ -21,3 +21,10 @@ d3.json(data, function (response) {
   // Plot the chart to a div tag with id "plot"
   Plotly.newPlot("plot", data, layout);
 });
+
+
+var url = "http://data.diversitydatakids.org/api/3/action/datastore_search"
+
+d3.json(url, function(data){
+  console.log(data)
+})

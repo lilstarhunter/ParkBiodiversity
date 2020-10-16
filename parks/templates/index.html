@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1.0" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>National Parks Biodiversity</title>
+  </head>
+  <body style="background-color: rgb(243, 250, 241)">
+    <nav style="background: rgb(180, 215, 162) !important" class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="http://127.0.0.1:5000/">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="max_temps.html"
+              >Max Temps <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="humidity.html">Humidity</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cloudiness.html">Cloudiness</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="wind_speed.html">Wind Speed</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="comparison.html">Comparison</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="data.html">Dataset</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div
+      style="background: rgb(226, 238, 194)"
+      class="jumbotron jumbotron-fluid"
+    >
+      <div class="container">
+        <h1 class="display-4">Save the Animals!!</h1>
+        <p class="lead w3-animate-opacity">
+          What is the current status of biodiversity in our parks. With changing climate, scientists agree the ramifications on the planet's ecosystems and species is at risk.
+
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div>
+            <a href="">
+              <img
+                src="https://media.cntraveler.com/photos/5ebeef63f52f4c0911cac483/master/pass/GrandCanyonNationalPark-2020-GettyImages-858637934.jpg"
+                class="img-fluid w3-center w3-animate-top"
+                alt="..."
+              />
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div>
+            <h4 class="w3-center w3-animate-bottom text-left">
+              Just breathtaking! But soon it will be DESTROYED!!!
+            
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <br />
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div>
+            <h4 class="w3-center w3-animate-bottom text-right">
+              Insert Sarah McLaughlin singing "Angels"<br>
+              Look into the eyes of this magnificent creature!
+            </h4>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div>
+            <a href="">
+              <img
+                src="https://images.squarespace-cdn.com/content/v1/564d14dfe4b0290681184a82/1476418909277-EH7BIGHQG4Z87NLTR7ME/ke17ZwdGBToddI8pDm48kKAwwdAfKsTlKsCcElEApLR7gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QPOohDIaIeljMHgDF5CVlOqpeNLcJ80NK65_fV7S1UegTYNQkRo-Jk4EWsyBNhwKrKLo5CceA1-Tdpfgyxoog5ck0MD3_q0rY3jFJjjoLbQ/Katmai+National+Park+-+016.jpg"
+                class="img-fluid w3-center w3-animate-top"
+                alt="..."
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+  </body>
+    <!-- Leaflet JS -->
+    <script
+    src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""
+  ></script>
+  <!-- API key -->
+  <script type="text/javascript" src="/static/js/config.js"></script>
+  <!--JS File-->
+  <script type="text/javascript" src="/static/js/logic_plot.js"></script>
+</html>
