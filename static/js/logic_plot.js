@@ -23,7 +23,7 @@ d3.json("/api/v1.0/parks")
   .then(function(data) {
     data.forEach(d =>{
       L.marker([d.Latitude, d.Longitude])
-      .bindPopup(`<h3>hi bois</h3>`).addTo(myMap)
+      .bindPopup(`<h3>${d.ParkName}</h3>`).addTo(myMap)
     })  
   })
   .catch(function(error) {
