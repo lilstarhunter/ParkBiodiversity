@@ -23,7 +23,7 @@ session = Session(engine)
 parks_data = session.query(Parks.ParkCode, Parks.ParkName, \
     Parks.State, Parks.Acres, Parks.Latitude, Parks.Longitude).all()
 species_data = session.query(Species.SpeciesID, Species.ParkName, \
-    Species.Category, Species.Order, Species.Family, Species.ScientificName)
+    Species.Category, Species.Order, Species.Family, Species.ScientificName).all()
 session.close()
 # Dump Parks data to json files
 all_parks_data = []
@@ -80,10 +80,21 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template('index2.html')
+    return render_template('index_park.html')
+
+@app.route("/test")
+def test():
+    return render_template('basic.html')
+
+
 @app.route("/api/v1.0/parks")
 def parks():
     return jsonify(parks_data)
+
+
+@app.route("/api/v1.0/species")
+def species():
+    return jsonify(species_data)
 # @app.route("/api/v1.0/species")
 # def species():
 
