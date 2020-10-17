@@ -37,6 +37,10 @@ app = Flask(__name__)
 def home():
     return render_template('index_park.html')
 
+@app.route("/parkmap")
+def park_map():
+    return render_template('map_park.html')
+
 
 @app.route("/api/v1.0/parks")
 def parks():

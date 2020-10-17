@@ -1,30 +1,27 @@
-var data = "../data/new.json";
-d3.json(data, function (response) {
-  //  Create the Traces
-
-  var trace1 = {
-    x: response.id,
-    y: response.msaid15,
-    type: "scatter",
-  };
-
-  // Create the data array for the plot
-  var data = [trace1];
-
-  // Define the plot layout
-  var layout = {
-    title: "Square Root of Cancer Survival by Organ",
-    xaxis: { title: "Organ" },
-    yaxis: { title: "Square Root of Survival" },
-  };
-
-  // Plot the chart to a div tag with id "plot"
-  Plotly.newPlot("plot", data, layout);
+var myMap = L.map("map", {
+  center: [45.52, -122.67],
+  zoom: 6,
 });
 
+L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+  attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+  tileSize: 512,
+  maxZoom: 18,
+  zoomOffset: -1,
+  id: "mapbox/streets-v11",
+  accessToken: API_KEY
+}).addTo(myMap);
 
-var url = "http://data.diversitydatakids.org/api/3/action/datastore_search"
 
-d3.json(url, function(data){
-  console.log(data)
-})
+
+
+
+
+
+
+d3.json("/api/v1.0/parks")
+  .then(function(data) {
+    console.log(data)  })
+  .catch(function(error) {
+    // Do some error handling.
+  });
