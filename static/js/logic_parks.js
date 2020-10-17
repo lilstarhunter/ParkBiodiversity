@@ -16,11 +16,6 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 
 
-
-
-
-
-
 d3.json("/api/v1.0/parks")
   .then(function(data) {
     console.log(data)  })

@@ -1,6 +1,6 @@
 var myMap = L.map("map", {
   center: [45.52, -122.67],
-  zoom: 6,
+  zoom: 3,
 });
 
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
@@ -21,7 +21,11 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 d3.json("/api/v1.0/parks")
   .then(function(data) {
-    console.log(data)  })
+    data.forEach(d =>{
+      L.marker([d.Latitude, d.Longitude])
+      .bindPopup(`<h3>hi bois</h3>`).addTo(myMap)
+    })  
+  })
   .catch(function(error) {
     // Do some error handling.
   });
