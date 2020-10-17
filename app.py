@@ -1,5 +1,3 @@
-import numpy as np
-
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -12,140 +10,101 @@ import json
 from flask import Flask, jsonify, render_template, url_for
 from flask_cors import CORS
 
-
-#################################################
-# Database Setup
-#################################################
+#connect to the database
 engine = create_engine("sqlite:///new.sqlite")
-
-# reflect an existing database into a new model
 Base = automap_base()
-# reflect the tables
 Base.prepare(engine, reflect=True)
+#reference db table
+Parks = Base.classes.parks
+Species = Base.classes.species
 
-# Save reference to the table
-Coi_data = Base.classes.coi_data
-
-#################################################
-# Flask Setup
-#################################################
-app = Flask(__name__)
-CORS(app)
-
-##############
-# dump table info to json files
-#######
+#open DB connection for query
 session = Session(engine)
-coi_data = session.query(Coi_data._id, Coi_data.geoid,
-                         Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
+parks_data = session.query(Parks.ParkCode, Parks.ParkName, \
+    Parks.State, Parks.Acres, Parks.Latitude, Parks.Longitude).all()
+species_data = session.query(Species.SpeciesID, Species.ParkName, \
+    Species.Category, Species.Order, Species.Family, Species.ScientificName)
 session.close()
-all_coi_data = []
-for _id, geoid, year, in100, msaid15 in coi_data:
+# Dump Parks data to json files
+all_parks_data = []
+for ParkCode, ParkName, State, Acres, Latitude, Longitude in parks_data:
     s_dict = {}
-    s_dict["_id"] = _id
-    s_dict["geoid"] = geoid
-    s_dict["year"] = year
-    s_dict["in100"] = in100
-    s_dict["msaid15"] = msaid15
-    all_coi_data.append(s_dict)
+    s_dict["ParkCode"] = ParkCode
+    s_dict["ParkName"] = ParkName
+    s_dict["State"] = State
+    s_dict["Acres"] = Acres
+    s_dict["Latitude"] = Latitude
+    s_dict["Longitude"] = Longitude
+    all_parks_data.append(s_dict)
 
 mydict_ = defaultdict(list)
 
-for x in all_coi_data:
+for x in all_parks_data:
     for k, v in x.items():
         mydict_[k].append(v)
 mydict = dict(mydict_)
 
 
-jsonfile = r'data/new.json'
+jsonfile = r'data/parks.json'
+with open(jsonfile, 'w', encoding='utf-8') as jsonf:
+    jsonf.write(json.dumps(mydict, indent=4))
+
+#Dump species data to json file
+# Dump Parks data to json files
+all_species_data = []
+for SpeciesID, ParkName, Category, Order, Family, ScientificName in species_data:
+    s_dict = {}
+    s_dict["SpeciesID"] = SpeciesID
+    s_dict["ParkName"] = ParkName
+    s_dict["Category"] = Category
+    s_dict["Order"] = Order
+    s_dict["Family"] = Family
+    s_dict["ScientificName"] = ScientificName
+    all_species_data.append(s_dict)
+
+mydict_ = defaultdict(list)
+
+for x in all_species_data:
+    for k, v in x.items():
+        mydict_[k].append(v)
+mydict = dict(mydict_)
+
+
+jsonfile = r'data/species.json'
 with open(jsonfile, 'w', encoding='utf-8') as jsonf:
     jsonf.write(json.dumps(mydict, indent=4))
 
 
-#################################################
-# Flask Routes
-#################################################
+#set up flask
+app = Flask(__name__)
 
 @app.route("/")
-def welcome():
-    #     con = sqlite3.connect("new.sqlite")
-    #     con.row_factory = sqlite3.Row
-    #     cur = con.cursor()
-    #     cur.execute("select * from survive")
-    #     rows = cur.fetchall()
-    #     return render_template("index2.html",rows = rows)
-    return render_template('test.html')
+def home():
+    return render_template('index2.html')
+@app.route("/api/v1.0/parks")
+def parks():
+    return jsonify(parks_data)
+# @app.route("/api/v1.0/species")
+# def species():
 
+#     all_species_data = []
+# for SpeciesID, ParkName, Category, Order, Family, ScientificName in species_data:
+#     s_dict = {}
+#     s_dict["SpeciesID"] = SpeciesID
+#     s_dict["ParkName"] = ParkName
+#     s_dict["Category"] = Category
+#     s_dict["Order"] = Order
+#     s_dict["Family"] = Family
+#     s_dict["ScientificName"] = ScientificName
+#     all_species_data.append(s_dict)
 
-@app.route("/map")
-def map():
-    #     con = sqlite3.connect("new.sqlite")
-    #     con.row_factory = sqlite3.Row
-    #     cur = con.cursor()
-    #     cur.execute("select * from survive")
-    #     rows = cur.fetchall()
-    #     return render_template("index2.html",rows = rows)
-    return render_template('map.html')
-# @app.route("/api/v1.0/names")
-# def names():
-#     # Create our session (link) from Python to the DB
-#     session = Session(engine)
+#  mydict_ = defaultdict(list)
 
-#     """Return a list of all passenger names"""
-#     # Query all passengers
-#     results = session.query(Passenger.name).all()
+# for x in all_species_data:
+#     for k, v in x.items():
+#         mydict_[k].append(v)
+#     mydict = dict(mydict_)
+# return jsonify(mydict)
 
-#     session.close()
-
-#     # Convert list of tuples into normal list
-#     all_names = list(np.ravel(results))
-
-#     return jsonify(all_names)
-
-
-@app.route("/api/v1.0/survivors")
-def survivors():
-    # Create our session (link) from Python to the DB
-    session = Session(engine)
-
-    # data = engine.execute("SELECT * FROM survive")
-
-    # """Return a list of passenger data including the name, age, and sex of each passenger"""
-    # Query all passengers
-    coi_data = session.query(Coi_data._id, Coi_data.geoid,
-                             Coi_data.year, Coi_data.in100, Coi_data.msaid15).all()
-    #  Coi_data.msaname15, Coi_data.statefips, Coi_data.stateusps, Coi_data.pop, Coi_data.z_HE_nat,\
-    #       Coi_data.z_COI_nat, Coi_data.c5_HE_nat, Coi_data.c5_COI_nat, Coi_data.c5_HE_stt, Coi_data.c5_COI_stt ).all()
-    # print(coi_data)
-    session.close()
-
-    # Create a dictionary from the row data and append to a list of all_passengers
-    all_coi_data = []
-    for _id, geoid, year, in100, msaid15 in coi_data:
-        s_dict = {}
-        s_dict["_id"] = _id
-        s_dict["geoid"] = geoid
-        s_dict["year"] = year
-        s_dict["in100"] = in100
-        s_dict["msaid15"] = msaid15
-        all_coi_data.append(s_dict)
-
-    mydict_ = defaultdict(list)
-
-    for x in all_coi_data:
-        for k, v in x.items():
-            mydict_[k].append(v)
-    mydict = dict(mydict_)
-
-    # jsonfile = r'data/new.json'
-    # with open(jsonfile, 'w', encoding='utf-8') as jsonf:
-    #     jsonf.write(json.dumps(mydict, indent=4))
-    return jsonify(mydict)
-
-    # for a in all_coi_data:
-    #     print(a)
-    # return jsonify(all_coi_data)
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
