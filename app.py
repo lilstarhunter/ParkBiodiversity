@@ -37,12 +37,52 @@ app = Flask(__name__)
 def home():
     return render_template('index_park.html')
 
+
+# Map #1 State Parks radius based on acres
 @app.route("/parkmap")
 def park_map():
-    return render_template('map_park.html')
+    session = Session(engine)
+    # return all results
+    parks_data = session.query(Parks.ParkCode, Parks.ParkName,
+                               Parks.State, Parks.Acres, Parks.Latitude, Parks.Longitude).all()
+
+    session.close()
+
+    all_parks_data = []
+    for ParkCode, ParkName, State, Acres, Latitude, Longitude in parks_data:
+        p_dict = {}
+        p_dict["ParkCode"] = ParkCode
+        p_dict["ParkName"] = ParkName
+        p_dict["State"] = State
+        p_dict["Acres"] = Acres
+        p_dict["Latitude"] = Latitude
+        p_dict["Longitude"] = Longitude
+        all_parks_data.append(p_dict)
+
+    return jsonify(all_parks_data)
+
+# Map #2 Animal Biodiversity
+
+
+@app.route("/parkmap/animal")
+def animal_map():
+    session = Session(engine)
+    # return all results
+    join_query = session.query(Parks, Species).join(
+        Parks, Parks.ParkName == Species.ParkName)
+    for row in join_query.all():
+        print("(")
+        for item in row:
+            print(" ", item)
+        print(")")
+
+    session.close()
+
+    return jsonify(join_query)
 
 
 @app.route("/api/v1.0/parks")
+# MAP_PARK.HTML
 def parks():
     session = Session(engine)
     # return all results
