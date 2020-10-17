@@ -89,9 +89,9 @@ def species():
 
 
 # open DB connection for query
-session = Session(engine)
+# session = Session(engine)
 
-session.close()
+# session.close()
 
 
 # JIM CODE
