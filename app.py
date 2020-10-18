@@ -79,8 +79,35 @@ def animal_map():
 
     return jsonify(animal_data)
 
+@app.route("/api/v1.0/plant_biodiv")
+def plant_biodiv():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT state, category  FROM merge WHERE category IN ('Vascular Plant', 'Nonvascular Plant') Order BY state")
+        results_as_list = result.fetchall()
 
+        plant_biodiv_data = []
+    for state, category  in results_as_list:
+        p_dict = {}
+        p_dict["State"] = state
+        p_dict["Category"] = category
+        plant_biodiv_data.append(p_dict)
 
+    return jsonify(plant_biodiv_data)
+
+# @app.route("/api/v1.0/insect_biodiv")
+# def insect_biodiv():
+#     with engine.connect() as connection:
+#         result = connection.execute("SELECT state, category  FROM merge WHERE category IN ('Vascular Plant', 'Nonvascular Plant') Order BY state")
+#         results_as_list = result.fetchall()
+
+#         plant_biodiv_data = []
+#     for state, category  in results_as_list:
+#         p_dict = {}
+#         p_dict["State"] = state
+#         p_dict["Category"] = category
+#         plant_biodiv_data.append(p_dict)
+
+#     return jsonify(plant_biodiv_data)
 
 @app.route("/api/v1.0/parks")
 # MAP_PARK.HTML
