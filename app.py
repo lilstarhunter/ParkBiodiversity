@@ -66,19 +66,20 @@ def park_map():
 
 @app.route("/parkmap/animal")
 def animal_map():
-    session = Session(engine)
-    # return all results
-    join_query = session.query(Parks, Species).join(
-        Parks, Parks.ParkName == Species.ParkName)
-    for row in join_query.all():
-        print("(")
-        for item in row:
-            print(" ", item)
-        print(")")
+    with engine.connect() as connection:
+        result = connection.execute("SELECT ParkName, Category FROM species WHERE Category = 'Mammal'")
+        results_as_list = result.fetchall()
 
-    session.close()
+        animal_data = []
+    for ParkName, Category  in results_as_list:
+        p_dict = {}
+        p_dict["ParkName"] = ParkName
+        p_dict["Category"] = Category
+        animal_data.append(p_dict)
 
-    return jsonify(join_query)
+    return jsonify(animal_data)
+
+
 
 
 @app.route("/api/v1.0/parks")
