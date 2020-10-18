@@ -62,23 +62,21 @@ def park_map():
     return jsonify(all_parks_data)
 
 # Map #2 Animal Biodiversity
-
-
-@app.route("/parkmap/animal")
-def animal_map():
+@app.route("/api/v1.0/animal_biodiv")
+def animal_biodiv():
     with engine.connect() as connection:
-        result = connection.execute("SELECT ParkName, Category FROM species WHERE Category = 'Mammal'")
+        result = connection.execute("SELECT state, category  FROM merge WHERE category IN ('Mammal', 'Bird', 'Reptile', 'Amphibian', 'Fish', 'Crab/Lobster/Shrimp', 'Invertebrate') Order BY state")
         results_as_list = result.fetchall()
 
-        animal_data = []
+        animal_biodiv_data = []
     for ParkName, Category  in results_as_list:
         p_dict = {}
         p_dict["ParkName"] = ParkName
         p_dict["Category"] = Category
-        animal_data.append(p_dict)
+        animal_biodiv_data.append(p_dict)
 
-    return jsonify(animal_data)
-
+    return jsonify(animal_biodiv_data)
+# Map #3 Plant Biodiversity
 @app.route("/api/v1.0/plant_biodiv")
 def plant_biodiv():
     with engine.connect() as connection:
@@ -93,21 +91,113 @@ def plant_biodiv():
         plant_biodiv_data.append(p_dict)
 
     return jsonify(plant_biodiv_data)
+# Map #4 Insect Biodiversity
+@app.route("/api/v1.0/insect_biodiv")
+def insect_biodiv():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT state, category  FROM merge WHERE category IN ('Spider/Scorpion', 'Insect', 'Slug/Snail' ) Order BY state")
+        results_as_list = result.fetchall()
 
-# @app.route("/api/v1.0/insect_biodiv")
-# def insect_biodiv():
-#     with engine.connect() as connection:
-#         result = connection.execute("SELECT state, category  FROM merge WHERE category IN ('Vascular Plant', 'Nonvascular Plant') Order BY state")
-#         results_as_list = result.fetchall()
+        insect_biodiv_data = []
+    for state, category  in results_as_list:
+        p_dict = {}
+        p_dict["State"] = state
+        p_dict["Category"] = category
+        insect_biodiv_data.append(p_dict)
 
-#         plant_biodiv_data = []
-#     for state, category  in results_as_list:
-#         p_dict = {}
-#         p_dict["State"] = state
-#         p_dict["Category"] = category
-#         plant_biodiv_data.append(p_dict)
+    return jsonify(insect_biodiv_data)
+# Map #5 Fungi Biodiversity
+@app.route("/api/v1.0/fungi_biodiv")
+def fungi_biodiv():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT state, category  FROM merge WHERE category IN ('Fungi', 'Algae') Order BY state")
+        results_as_list = result.fetchall()
 
-#     return jsonify(plant_biodiv_data)
+        fungi_biodiv_data = []
+    for state, category  in results_as_list:
+        p_dict = {}
+        p_dict["State"] = state
+        p_dict["Category"] = category
+        fungi_biodiv_data.append(p_dict)
+
+    return jsonify(fungi_biodiv_data)
+# Scatter Plot #1 Park Acres x Total # Animals
+@app.route("/api/v1.0/scatter_animals")
+def scatter_animals():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT name, category  FROM merge WHERE category IN ('Mammal', 'Bird', 'Reptile', 'Amphibian', 'Fish', 'Crab/Lobster/Shrimp', 'Invertebrate') Order BY name")
+        results_as_list = result.fetchall()
+
+        scatter_animals_data = []
+    for name, category  in results_as_list:
+        p_dict = {}
+        p_dict["Name"] = name
+        p_dict["Category"] = category
+        scatter_animals_data.append(p_dict)
+
+    return jsonify(scatter_animals_data)
+# Scatter Plot #2 Park Acres x Total # Plants
+@app.route("/api/v1.0/scatter_plants")
+def scatter_plants():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT name, category  FROM merge WHERE category IN ('Vascular Plant', 'Nonvascular Plant') Order BY name")
+        results_as_list = result.fetchall()
+
+        scatter_plants_data = []
+    for name, category  in results_as_list:
+        p_dict = {}
+        p_dict["Name"] = name
+        p_dict["Category"] = category
+        scatter_plants_data.append(p_dict)
+
+    return jsonify(scatter_plants_data)
+
+# Scatter Plot #3 Park Acres x Total # Insects
+@app.route("/api/v1.0/scatter_insects")
+def scatter_insects():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT name, category  FROM merge WHERE category IN ('Spider/Scorpion', 'Insect', 'Slug/Snail') Order BY name")
+        results_as_list = result.fetchall()
+
+        scatter_insects_data = []
+    for name, category  in results_as_list:
+        p_dict = {}
+        p_dict["Name"] = name
+        p_dict["Category"] = category
+        scatter_insects_data.append(p_dict)
+
+    return jsonify(scatter_insects_data)
+# Scatter Plot #4 Park Acres x Total # Fungi
+@app.route("/api/v1.0/scatter_fungi")
+def scatter_fungi():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT name, category  FROM merge WHERE category IN ('Fungi', 'Algae') Order BY name")
+        results_as_list = result.fetchall()
+
+        scatter_fungi_data = []
+    for name, category  in results_as_list:
+        p_dict = {}
+        p_dict["Name"] = name
+        p_dict["Category"] = category
+        scatter_fungi_data.append(p_dict)
+
+    return jsonify(scatter_fungi_data)
+
+
+@app.route("/api/v1.0/scatter_fungi")
+def scatter_fungi():
+    with engine.connect() as connection:
+        result = connection.execute("SELECT name, category  FROM merge WHERE category IN ('Fungi', 'Algae') Order BY name")
+        results_as_list = result.fetchall()
+
+        scatter_fungi_data = []
+    for name, category  in results_as_list:
+        p_dict = {}
+        p_dict["Name"] = name
+        p_dict["Category"] = category
+        scatter_fungi_data.append(p_dict)
+
+    return jsonify(scatter_fungi_data)
 
 @app.route("/api/v1.0/parks")
 # MAP_PARK.HTML
