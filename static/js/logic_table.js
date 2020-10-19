@@ -1,4 +1,4 @@
-d3.json("/api/v1.0/parkdata")
+d3.json("/api/v1.0/analysis")
   .then(function (data) {
     console.log(data);
     // Do some error handling.
@@ -39,12 +39,10 @@ d3.json("/api/v1.0/parkdata")
     }
     // render the table(s)
     tabulate(data, [
-      "ParkCode",
-      "ParkName",
       "State",
-      "Acres",
-      "Latitude",
-      "Longitude",
+      "Park Name",
+      "Category",
+      "Biodiversity Count"
     ]);
 
     // Do some error handling.

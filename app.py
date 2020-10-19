@@ -21,6 +21,7 @@ Base.prepare(engine, reflect=True)
 # reference db table
 Parks = Base.classes.parks
 Species = Base.classes.species
+Merge = Base.classes.merge
 
 #################################################
 # Flask Setup
@@ -46,8 +47,6 @@ def parkdata():
 def biodiversity():
     return render_template('biodiversity.html')
 
-# BONUS
-
 
 @app.route("/analysis")
 def analysis():
@@ -62,7 +61,24 @@ def table():
 # Flask Routes BACKEND
 #################################################
 # Map #1 State Parks radius based on acres
+@app.route("/api/v1.0/analysis")
+def biodiv_analysis():
+    session = Session(engine)
+    sel = [Merge.state, Merge.name, Merge.category, func.count(Merge.category)]
+    results = session.query(*sel)\
+                    .group_by(Merge.name).group_by(Merge.category)\
+                    .all()
 
+    session.close()
+    animal_biodiv = []
+    for state, name, category, count in results:
+            p_dict = {}
+            p_dict["State"] = state
+            p_dict["Park Name"] = name
+            p_dict["Category"] = category
+            p_dict["Biodiversity Count"] = count
+            animal_biodiv.append(p_dict)
+    return jsonify(animal_biodiv)
 
 @app.route("/api/v1.0/parkdata")
 def park_map():
