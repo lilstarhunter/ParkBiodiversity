@@ -10,7 +10,10 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <link href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css" rel="stylesheet">
+    <link
+      href="https://unpkg.com/bootstrap-table@1.18.0/dist/bootstrap-table.min.css"
+      rel="stylesheet"
+    />
 
     <!-- Leaflet CSS -->
     <link
@@ -49,60 +52,62 @@
 
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="max_temps.html"
-              >Max Temps <span class="sr-only">(current)</span></a
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('parkdata') }}"
+              >National Parks
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('biodiversity') }}"
+              >Biodiversity</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="humidity.html">Humidity</a>
+            <a class="nav-link" href="{{ url_for('analysis') }}">Analysis</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cloudiness.html">Cloudiness</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="wind_speed.html">Wind Speed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="comparison.html">Comparison</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="data.html">Dataset</a>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('table') }}"
+              >Data Table<span class="sr-only">(current)</span></a
+            >
           </li>
         </ul>
       </div>
     </nav>
-    <div class = "container-fluid content">
-      <div class= "col-md-12">
+    <div class="container-fluid content">
+      <div class="col-md-12">
         <div class="table-responsive">
-          <br>
+          <br />
           <h2>National Parks Data</h2>
           <hr />
           <p>
-            The following table inludes all the data used to generate the plots and
-            analysis for this project.
+            The following table inludes all the data used to generate the plots
+            and analysis for this project.
           </p>
           <br />
-          <input class="form-control" id="myInput" type="text" placeholder="Search..">
+          <input
+            class="form-control"
+            id="myInput"
+            type="text"
+            placeholder="Search.."
+          />
           <table id="parks" class="table table-striped table-hover">
             <thead></thead>
-              <tbody id = "myTable"></tbody>
-            
+            <tbody id="myTable"></tbody>
           </table>
         </div>
-        </div>
+      </div>
     </div>
     <script>
-      $(document).ready(function(){
-        $("#myInput").on("keyup", function() {
+      $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
           var value = $(this).val().toLowerCase();
-          $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
           });
         });
       });
-      </script>
-      </body>
+    </script>
+  </body>
   <!-- d3 JavaScript -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="text/javascript" src="/static/js/logic_table.js"></script>
