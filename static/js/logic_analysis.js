@@ -30,11 +30,12 @@ d3.json("/api/v1.0/analysis").then(function (data) {
   data.forEach((d) => {
     var xScale = d3
       .scaleLinear()
-      .domain(d3.extent(data, (d) => d.acres))
+      .domain(d3.extent(data, (d) => d.Acres))
       .range([0, width]);
+
     var yScale = d3
       .scaleLinear()
-      .domain(d3.extent(data, (d) => d.count))
+      .domain(d3.extent(data, (d) => d.BiodiversityCount))
       .range([height, 0]);
 
     // create axes
@@ -54,9 +55,9 @@ d3.json("/api/v1.0/analysis").then(function (data) {
       .data(data)
       .enter()
       .append("circle")
-      .attr("cx", (d) => xScale(d.acres))
-      .attr("cy", (d) => yScale(d.count))
-      .attr("r", "15")
+      .attr("cx", (d) => xScale(d.Acres))
+      .attr("cy", (d) => yScale(d.BiodiversityCount))
+      .attr("r", "1")
       .attr("stroke-width", "1");
 
     var circleLabels = chartGroup
@@ -65,24 +66,24 @@ d3.json("/api/v1.0/analysis").then(function (data) {
       .enter()
       .append("text");
 
-    circleLabels
-      .attr("x", function (d) {
-        return xScale(d.acres);
-      })
-      .attr("y", function (d) {
-        return yScale(d.count);
-      })
-      .text(function (d) {
-        return d.state;
-      });
+    // circleLabels
+    //   .attr("x", function (d) {
+    //     return xScale(d.Acres);
+    //   })
+    //   .attr("y", function (d) {
+    //     return yScale(d.BiodiversityCount);
+    //   })
+    //   .text(function (d) {
+    //     return d.ParkName;
+    //   });
 
-    chartGroup
-      .selectAll("text")
-      .data(data)
-      .enter()
-      .append("text")
-      .attr("x", (d) => xScale(d.acres))
-      .attr("y", (d) => yScale(d.count));
+    // chartGroup
+    //   .selectAll("text")
+    //   .data(data)
+    //   .enter()
+    //   .append("text")
+    //   .attr("x", (d) => xScale(d.Acres))
+    //   .attr("y", (d) => yScale(d.BiodiversityCount));
 
     chartGroup
       .append("text")
@@ -93,6 +94,12 @@ d3.json("/api/v1.0/analysis").then(function (data) {
       .attr("transform", `translate(-35, 200)rotate(270)`)
       .text("Biodiversity");
   });
+
+  // })
+  // data.forEach((d) => {
+  //
+
+  //
 
   // data.forEach(function (data) {
 

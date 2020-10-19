@@ -78,10 +78,10 @@ def biodiv_analysis():
     for state, name, acres, category, count in results:
         p_dict = {}
         p_dict["State"] = state
-        p_dict["Park Name"] = name
+        p_dict["ParkName"] = name
         p_dict["Acres"] = acres
         p_dict["Category"] = category
-        p_dict["Biodiversity Count"] = count
+        p_dict["BiodiversityCount"] = count
         park_biodiv.append(p_dict)
     return jsonify(park_biodiv)
 
@@ -166,7 +166,7 @@ def insect_biodiv():
     sel = [Merge.name, Merge.state, Merge.lat, Merge.lon,
            Merge.category, func.count(Merge.category)]
     results = session.query(*sel)\
-        .group_by(Merge.name).filter(or_(Merge.category == 'Spider/Scorpion', Merge.category == 'Insect', Merge.category == 'Slug/Snail' )).all()
+        .group_by(Merge.name).filter(or_(Merge.category == 'Spider/Scorpion', Merge.category == 'Insect', Merge.category == 'Slug/Snail')).all()
 
     session.close()
     insect_biodiv = []
@@ -190,7 +190,7 @@ def fungi_biodiv():
     sel = [Merge.name, Merge.state, Merge.lat, Merge.lon,
            Merge.category, func.count(Merge.category)]
     results = session.query(*sel)\
-        .group_by(Merge.name).filter(or_(Merge.category == 'Fungi', Merge.category == 'Algae' )).all()
+        .group_by(Merge.name).filter(or_(Merge.category == 'Fungi', Merge.category == 'Algae')).all()
 
     session.close()
     fungi_biodiv = []
