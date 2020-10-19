@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, intial-scale=1.0" />
+    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" /> -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+      integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+      crossorigin=""
+    />
+
+    <!-- d3 JavaScript -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+
+    <title>Project 3</title>
+  </head>
+  <body style="background-color: rgb(243, 250, 241)">
+    <nav
+      style="background: rgb(180, 215, 162) !important"
+      class="navbar navbar-expand-lg navbar-light bg-secondary"
+    >
+      <a class="navbar-brand" href="http://127.0.0.1:5000/">Home</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarColor03"
+        aria-controls="navbarColor01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="max_temps.html"
+              >Max Temps <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="humidity.html">Humidity</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="cloudiness.html">Cloudiness</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="wind_speed.html">Wind Speed</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="comparison.html">Comparison</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="data.html">Dataset</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="table-responsive">
+      <h2>Data</h2>
+      <hr />
+      <p>
+        The following table inludes all the data used to generate the plots and
+        analysis for this project.
+      </p>
+      <br />
+    </div>
+  </body>
+  <!-- d3 JavaScript -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script type="text/javascript" src="/static/js/logic_table.js"></script>
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""
+  ></script>
+</html>
