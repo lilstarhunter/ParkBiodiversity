@@ -5,6 +5,7 @@ import sqlite3
 import csv
 from collections import defaultdict
 import json
+from sqlalchemy import or_
 
 from flask import Flask, jsonify, render_template
 
@@ -61,25 +62,29 @@ def table():
 # Flask Routes BACKEND
 #################################################
 # Map #1 State Parks radius based on acres
+
+
 @app.route("/api/v1.0/analysis")
 def biodiv_analysis():
     session = Session(engine)
-    sel = [Merge.state, Merge.name, Merge.acres, Merge.category, func.count(Merge.category)]
+    sel = [Merge.state, Merge.name, Merge.acres,
+           Merge.category, func.count(Merge.category)]
     results = session.query(*sel)\
-                    .group_by(Merge.name).group_by(Merge.category)\
-                    .all()
+        .group_by(Merge.name).group_by(Merge.category)\
+        .all()
 
     session.close()
     park_biodiv = []
     for state, name, acres, category, count in results:
-            p_dict = {}
-            p_dict["State"] = state
-            p_dict["Park Name"] = name
-            p_dict["Acres"] = acres
-            p_dict["Category"] = category
-            p_dict["Biodiversity Count"] = count
-            park_biodiv.append(p_dict)
+        p_dict = {}
+        p_dict["State"] = state
+        p_dict["Park Name"] = name
+        p_dict["Acres"] = acres
+        p_dict["Category"] = category
+        p_dict["Biodiversity Count"] = count
+        park_biodiv.append(p_dict)
     return jsonify(park_biodiv)
+
 
 @app.route("/api/v1.0/parkdata")
 def park_map():
@@ -109,23 +114,30 @@ def park_map():
 
 @app.route("/api/v1.0/animal_biodiv")
 def animal_biodiv():
-    with engine.connect() as connection:
-        result = connection.execute(
-            "SELECT state, category  FROM merge WHERE category IN ('Mammal', 'Bird', 'Reptile', 'Amphibian', 'Fish', 'Crab/Lobster/Shrimp', 'Invertebrate') Order BY state")
-        results_as_list = result.fetchall()
+    session = Session(engine)
+    sel = [Merge.name, Merge.state, Merge.lat, Merge.lon,
+           Merge.category, func.count(Merge.category)]
+    results = session.query(*sel)\
+        .group_by(Merge.name).filter(or_(Merge.category == 'Mammal', Merge.category == 'Bird', Merge.category == 'Reptile', Merge.category == 'Amphibian', Merge.category == 'Fish', Merge.category == 'Crab/Lobster/Shrimp', Merge.category == 'Invertebrate')).all()
 
-        animal_biodiv_data = []
-    for ParkName, Category in results_as_list:
+    session.close()
+
+    animal_biodiv = []
+    for name, state, lat, lon, category, count in results:
         p_dict = {}
-        p_dict["ParkName"] = ParkName
-        p_dict["Category"] = Category
-        animal_biodiv_data.append(p_dict)
+        p_dict["Park Name"] = name
+        p_dict["State"] = state
+        p_dict["lat"] = lat
+        p_dict["lon"] = lon
+        p_dict["Category"] = category
+        p_dict["Biodiversity Count"] = count
+        animal_biodiv.append(p_dict)
+    return jsonify(animal_biodiv)
 
-    return jsonify(animal_biodiv_data)
 # Map #3 Plant Biodiversity
 
 
-@app.route("/api/v1.0/plant_biodiv")
+@ app.route("/api/v1.0/plant_biodiv")
 def plant_biodiv():
     with engine.connect() as connection:
         result = connection.execute(
@@ -143,7 +155,7 @@ def plant_biodiv():
 # Map #4 Insect Biodiversity
 
 
-@app.route("/api/v1.0/insect_biodiv")
+@ app.route("/api/v1.0/insect_biodiv")
 def insect_biodiv():
     with engine.connect() as connection:
         result = connection.execute(
@@ -162,7 +174,7 @@ def insect_biodiv():
 # Map #5 Fungi Biodiversity
 
 
-@app.route("/api/v1.0/fungi_biodiv")
+@ app.route("/api/v1.0/fungi_biodiv")
 def fungi_biodiv():
     with engine.connect() as connection:
         result = connection.execute(
@@ -181,7 +193,7 @@ def fungi_biodiv():
 # Scatter Plot #1 Park Acres x Total # Animals
 
 
-@app.route("/api/v1.0/scatter_animals")
+@ app.route("/api/v1.0/scatter_animals")
 def scatter_animals():
     with engine.connect() as connection:
         result = connection.execute(
@@ -201,7 +213,7 @@ def scatter_animals():
 # Scatter Plot #2 Park Acres x Total # Plants
 
 
-@app.route("/api/v1.0/scatter_plants")
+@ app.route("/api/v1.0/scatter_plants")
 def scatter_plants():
     with engine.connect() as connection:
         result = connection.execute(
@@ -221,7 +233,7 @@ def scatter_plants():
 # Scatter Plot #3 Park Acres x Total # Insects
 
 
-@app.route("/api/v1.0/scatter_insects")
+@ app.route("/api/v1.0/scatter_insects")
 def scatter_insects():
     with engine.connect() as connection:
         result = connection.execute(
@@ -241,7 +253,7 @@ def scatter_insects():
 # Scatter Plot #4 Park Acres x Total # Fungi
 
 
-@app.route("/api/v1.0/scatter_fungi")
+@ app.route("/api/v1.0/scatter_fungi")
 def scatter_fungi():
     with engine.connect() as connection:
         result = connection.execute(
