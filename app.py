@@ -139,56 +139,71 @@ def animal_biodiv():
 
 @ app.route("/api/v1.0/plant_biodiv")
 def plant_biodiv():
-    with engine.connect() as connection:
-        result = connection.execute(
-            "SELECT state, category  FROM merge WHERE category IN ('Vascular Plant', 'Nonvascular Plant') Order BY state")
-        results_as_list = result.fetchall()
+    session = Session(engine)
+    sel = [Merge.name, Merge.state, Merge.lat, Merge.lon,
+           Merge.category, func.count(Merge.category)]
+    results = session.query(*sel)\
+        .group_by(Merge.name).filter(or_(Merge.category == 'Vascular Plant', Merge.category == 'Nonvascular Plant')).all()
 
-        plant_biodiv_data = []
-    for state, category in results_as_list:
+    session.close()
+    plant_biodiv = []
+    for name, state, lat, lon, category, count in results:
         p_dict = {}
+        p_dict["Park Name"] = name
         p_dict["State"] = state
+        p_dict["lat"] = lat
+        p_dict["lon"] = lon
         p_dict["Category"] = category
-        plant_biodiv_data.append(p_dict)
-
-    return jsonify(plant_biodiv_data)
+        p_dict["Biodiversity Count"] = count
+        plant_biodiv.append(p_dict)
+    return jsonify(plant_biodiv)
 # Map #4 Insect Biodiversity
 
 
 @ app.route("/api/v1.0/insect_biodiv")
 def insect_biodiv():
-    with engine.connect() as connection:
-        result = connection.execute(
-            "SELECT state, category  FROM merge WHERE category IN ('Spider/Scorpion', 'Insect', 'Slug/Snail' ) Order BY state")
-        results_as_list = result.fetchall()
+    session = Session(engine)
+    sel = [Merge.name, Merge.state, Merge.lat, Merge.lon,
+           Merge.category, func.count(Merge.category)]
+    results = session.query(*sel)\
+        .group_by(Merge.name).filter(or_(Merge.category == 'Spider/Scorpion', Merge.category == 'Insect', Merge.category == 'Slug/Snail' )).all()
 
-        insect_biodiv_data = []
-    for state, category in results_as_list:
+    session.close()
+    insect_biodiv = []
+    for name, state, lat, lon, category, count in results:
         p_dict = {}
+        p_dict["Park Name"] = name
         p_dict["State"] = state
+        p_dict["lat"] = lat
+        p_dict["lon"] = lon
         p_dict["Category"] = category
-        insect_biodiv_data.append(p_dict)
-
-    return jsonify(insect_biodiv_data)
+        p_dict["Biodiversity Count"] = count
+        insect_biodiv.append(p_dict)
+    return jsonify(insect_biodiv)
 
 # Map #5 Fungi Biodiversity
 
 
 @ app.route("/api/v1.0/fungi_biodiv")
 def fungi_biodiv():
-    with engine.connect() as connection:
-        result = connection.execute(
-            "SELECT state, category  FROM merge WHERE category IN ('Fungi', 'Algae') Order BY state")
-        results_as_list = result.fetchall()
+    session = Session(engine)
+    sel = [Merge.name, Merge.state, Merge.lat, Merge.lon,
+           Merge.category, func.count(Merge.category)]
+    results = session.query(*sel)\
+        .group_by(Merge.name).filter(or_(Merge.category == 'Fungi', Merge.category == 'Algae' )).all()
 
-        fungi_biodiv_data = []
-    for state, category in results_as_list:
+    session.close()
+    fungi_biodiv = []
+    for name, state, lat, lon, category, count in results:
         p_dict = {}
+        p_dict["Park Name"] = name
         p_dict["State"] = state
+        p_dict["lat"] = lat
+        p_dict["lon"] = lon
         p_dict["Category"] = category
-        fungi_biodiv_data.append(p_dict)
-
-    return jsonify(fungi_biodiv_data)
+        p_dict["Biodiversity Count"] = count
+        fungi_biodiv.append(p_dict)
+    return jsonify(fungi_biodiv)
 
 # Scatter Plot #1 Park Acres x Total # Animals
 
