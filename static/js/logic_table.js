@@ -1,11 +1,11 @@
-d3.json("/api/v1.0/parks")
+d3.json("/api/v1.0/parkdata")
   .then(function (data) {
     console.log(data);
     // Do some error handling.
     function tabulate(data, columns) {
-      var table = d3.select("body").append("table");
-      var thead = table.append("thead");
-      var tbody = table.append("tbody");
+      var table = d3.select("table");
+      var thead = table.select("thead");
+      var tbody = table.select("tbody");
 
       // append the header row
       thead
@@ -37,8 +37,6 @@ d3.json("/api/v1.0/parks")
 
       return table;
     }
-    console.log("hello");
-
     // render the table(s)
     tabulate(data, [
       "ParkCode",

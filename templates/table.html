@@ -17,7 +17,8 @@
       integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
       crossorigin=""
     />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- d3 JavaScript -->
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
@@ -69,17 +70,37 @@
         </ul>
       </div>
     </nav>
-
-    <div class="table-responsive">
-      <h2>Data</h2>
-      <hr />
-      <p>
-        The following table inludes all the data used to generate the plots and
-        analysis for this project.
-      </p>
-      <br />
+    <div class = "container-fluid content">
+      <div class= "col-md-12">
+        <div class="table-responsive">
+          <br>
+          <h2>National Parks Data</h2>
+          <hr />
+          <p>
+            The following table inludes all the data used to generate the plots and
+            analysis for this project.
+          </p>
+          <br />
+          <input class="form-control" id="myInput" type="text" placeholder="Search..">
+          <table id="parks" class="table table-striped table-hover">
+            <thead></thead>
+              <tbody id = "myTable"></tbody>
+            
+          </table>
+        </div>
+        </div>
     </div>
-  </body>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+      </script>
+      </body>
   <!-- d3 JavaScript -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script type="text/javascript" src="/static/js/logic_table.js"></script>
