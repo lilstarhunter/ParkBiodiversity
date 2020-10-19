@@ -41,6 +41,7 @@ d3.json("/api/v1.0/analysis")
     tabulate(data, [
       "State",
       "Park Name",
+      "Acres",
       "Category",
       "Biodiversity Count"
     ]);

@@ -64,21 +64,22 @@ def table():
 @app.route("/api/v1.0/analysis")
 def biodiv_analysis():
     session = Session(engine)
-    sel = [Merge.state, Merge.name, Merge.category, func.count(Merge.category)]
+    sel = [Merge.state, Merge.name, Merge.acres, Merge.category, func.count(Merge.category)]
     results = session.query(*sel)\
                     .group_by(Merge.name).group_by(Merge.category)\
                     .all()
 
     session.close()
-    animal_biodiv = []
-    for state, name, category, count in results:
+    park_biodiv = []
+    for state, name, acres, category, count in results:
             p_dict = {}
             p_dict["State"] = state
             p_dict["Park Name"] = name
+            p_dict["Acres"] = acres
             p_dict["Category"] = category
             p_dict["Biodiversity Count"] = count
-            animal_biodiv.append(p_dict)
-    return jsonify(animal_biodiv)
+            park_biodiv.append(p_dict)
+    return jsonify(park_biodiv)
 
 @app.route("/api/v1.0/parkdata")
 def park_map():
