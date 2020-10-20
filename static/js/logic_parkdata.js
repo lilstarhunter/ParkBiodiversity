@@ -24,6 +24,10 @@ d3.json("/api/v1.0/parkdata")
         .bindPopup(`<h3>${d.ParkName}</h3>`)
         .addTo(myMap);
     });
+    data.forEach((d) => {
+      var dropdown = d3.select("#selDataset");
+      dropdown.append("option").text(d.state).property("value");
+    });
   })
   .catch(function (error) {
     // Do some error handling.
