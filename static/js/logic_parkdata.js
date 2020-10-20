@@ -16,6 +16,28 @@ L.tileLayer(
   }
 ).addTo(myMap);
 
+function demoInfo(id) {
+        d3.json("samples.json").then((data)=> {
+            var metadata = data.metadata;
+            console.log(metadata)
+         var result = metadata.filter(meta => meta.id.toString() === id)[0];
+         var demographicInfo = d3.select("#sample-metadata");
+        
+         demographicInfo.html("");
+  
+       // inject demographic data for the id and append the info to the panel html
+          Object.entries(result).forEach((i) => {   
+              demographicInfo.append("h5").text(i[0].toUpperCase() + ": " + i[1] + "\n");    
+          });
+      });
+  }
+
+function optionChanged(id) {
+  Plots(id);
+  demoInfo(id);
+}
+
+
 d3.json("/api/v1.0/parkdata")
   .then(function (data) {
     console.log(data);
