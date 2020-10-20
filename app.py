@@ -49,6 +49,11 @@ def biodiversity():
     return render_template('biodiversity.html')
 
 
+@app.route("/biodiversity2")
+def biodiversity2():
+    return render_template('biodiversity2.html')
+
+
 @app.route("/analysis")
 def analysis():
     return render_template('analysis.html')
