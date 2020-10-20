@@ -3,14 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, intial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" /> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+
+  </head>    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!-- Leaflet CSS -->
     <link
       rel="stylesheet"
@@ -68,21 +63,23 @@
         </ul>
       </div>
     </nav>
-    <div class="container fluid">
+    <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
-        <div class="well">
+      <div class="col-md-6">
+        <div class="card-header">
           <h5>Select a State:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">State Park Info</h3>
+        <div class="card bg">
+          <div class="card-header">
+            <h3 class="card-title">State Park Info</h3>
           </div>
-          <div id="state-info" class="panel-body"></div>
+          <div id="state-info" class="card-body"></div>
+          <div class="card-footer"></div>
         </div>
       </div>
-      <div class="col-md-8">
+      <br><br><br><br>
+      <div class="col-md-6">
       <div id="map"></div>
     </div>
 
