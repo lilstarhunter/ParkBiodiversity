@@ -40,10 +40,10 @@ d3.json("/api/v1.0/analysis")
     // render the table(s)
     tabulate(data, [
       "State",
-      "Park Name",
+      "ParkName",
       "Acres",
       "Category",
-      "Biodiversity Count"
+      "BiodiversityCount"
     ]);
 
     // Do some error handling.

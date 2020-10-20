@@ -16,41 +16,52 @@ L.tileLayer(
   }
 ).addTo(myMap);
 
-function demoInfo(id) {
-        d3.json("samples.json").then((data)=> {
-            var metadata = data.metadata;
-            console.log(metadata)
-         var result = metadata.filter(meta => meta.id.toString() === id)[0];
-         var demographicInfo = d3.select("#sample-metadata");
+// function demoInfo(id) {
+//         d3.json("samples.json").then((data)=> {
+//             var metadata = data.metadata;
+//             console.log(metadata)
+//          var result = metadata.filter(meta => meta.id.toString() === id)[0];
+//          var demographicInfo = d3.select("#sample-metadata");
         
-         demographicInfo.html("");
+//          demographicInfo.html("");
   
-       // inject demographic data for the id and append the info to the panel html
-          Object.entries(result).forEach((i) => {   
-              demographicInfo.append("h5").text(i[0].toUpperCase() + ": " + i[1] + "\n");    
-          });
-      });
-  }
+//        // inject demographic data for the id and append the info to the panel html
+//           Object.entries(result).forEach((i) => {   
+//               demographicInfo.append("h5").text(i[0].toUpperCase() + ": " + i[1] + "\n");    
+//           });
+  //     });
+  // }
 
-function optionChanged(id) {
-  Plots(id);
-  demoInfo(id);
-}
+// function optionChanged(id) {
+//   Plots(id);
+//   demoInfo(id);
+// }
 
 
 d3.json("/api/v1.0/parkdata")
   .then(function (data) {
-    console.log(data);
+    // console.log(data);
     data.forEach((d) => {
       L.marker([d.Latitude, d.Longitude])
         .bindPopup(`<h3>${d.ParkName}</h3>`)
         .addTo(myMap);
     });
+
+    // Creating the drop down menu
     data.forEach((d) => {
       var dropdown = d3.select("#selDataset");
-      dropdown.append("option").text(d.state).property("value");
+      dropdown.append("option").text(d.State).property("value");
     });
+
+    selectValue = d3.select("select").property("value")
+    var result = data.filter((d) => d.State === selectValue)[0]
+    var info = d3.select("#state-info")
+    info.html("")
+    Object.entries(result).forEach((i) => {
+      info.append("h5").text(i[0] + ": " + i[1] + "\n")
+    })
   })
+  
   .catch(function (error) {
     // Do some error handling.
   });

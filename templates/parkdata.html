@@ -32,7 +32,7 @@
       style="background: rgb(180, 215, 162) !important"
       class="navbar navbar-expand-lg navbar-light bg-secondary"
     >
-      <a class="navbar-brand" href="http://127.0.0.1:5000/">Home</a>
+      <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -68,8 +68,9 @@
         </ul>
       </div>
     </nav>
+    <div class="container fluid">
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-4">
         <div class="well">
           <h5>Select a State:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
@@ -78,10 +79,10 @@
           <div class="panel-heading">
             <h3 class="panel-title">State Park Info</h3>
           </div>
-          <div id="sample-metadata" class="panel-body"></div>
+          <div id="state-info" class="panel-body"></div>
         </div>
       </div>
-    <div class="container">
+      <div class="col-md-8">
       <div id="map"></div>
     </div>
 
