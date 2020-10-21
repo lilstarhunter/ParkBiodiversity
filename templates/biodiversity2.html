@@ -47,24 +47,23 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="max_temps.html"
-              >Max Temps <span class="sr-only">(current)</span></a
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('parkdata') }}"
+              >National Parks
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('biodiversity2') }}"
+              >Biodiversity<span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{{ url_for('analysis') }}"
+              >Analysis</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="humidity.html">Humidity</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="cloudiness.html">Cloudiness</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="wind_speed.html">Wind Speed</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="comparison.html">Comparison</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="data.html">Dataset</a>
+            <a class="nav-link" href="{{ url_for('table') }}">Data Table</a>
           </li>
         </ul>
       </div>
@@ -76,7 +75,7 @@
           <div id="mapOne">
           </div>
           <div class="col-md-6">
-            <h3>Animal Biodiversity Map</h3>
+            <h3 style="font-size:150%;color:rgb(6, 154, 11);font-family:Times;text-align:center;">Animal Biodiversity Map</h3>
           </div>
         </div>
       </div>
