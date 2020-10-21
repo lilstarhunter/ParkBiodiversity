@@ -44,16 +44,17 @@ d3.json("/api/v1.0/animal_biodiv")
           fillOpacity: 0.6,
         };
 
-        mammalMarkers.push(
-          L.circleMarker([d.lat, d.lon], options).bindPopup(
-            `<h3>${d["Park Name"]}</h3><h4>Biodiversity Count: ${d["Biodiversity Count"]}`
-          )
-        );
+        var starter = L.circleMarker([d.lat, d.lon], options).bindPopup(
+          `<h3>${d["Park Name"]}</h3><h4>Biodiversity Count: ${d["Biodiversity Count"]}`
+        )
+        
+        mammalMarkers.push(starter);
       }
     });
 
+    
     var mammalLayer = L.layerGroup(mammalMarkers);
-
+     mammalLayer.addTo(mapOne)
     // fish layer group
     var fishMarkers = [];
     data.forEach((d) => {
@@ -97,6 +98,7 @@ d3.json("/api/v1.0/animal_biodiv")
       }
     });
     var amphibianLayer = L.layerGroup(amphibianMarkers);
+    amphibianLayer.addTo(mapOne)
 
     // Bird layer group
     var birdMarkers = [];
@@ -119,6 +121,7 @@ d3.json("/api/v1.0/animal_biodiv")
       }
     });
     var birdLayer = L.layerGroup(birdMarkers);
+    birdLayer.addTo(mapOne)
 
     // Invertebrate layer group
     var invertebrateMarkers = [];
@@ -141,6 +144,8 @@ d3.json("/api/v1.0/animal_biodiv")
       }
     });
     var invertebrateLayer = L.layerGroup(invertebrateMarkers);
+    invertebrateLayer.addTo(mapOne)
+    fishLayer.addTo(mapOne)
 
     var overlayMaps = {
       Mammals: mammalLayer,
@@ -149,7 +154,7 @@ d3.json("/api/v1.0/animal_biodiv")
       Birds: birdLayer,
       Invertebrate: invertebrateLayer,
     };
-    L.control.layers(overlayMaps).addTo(mapOne);
+    L.control.layers(null, overlayMaps).addTo(mapOne);
   })
   .catch(function (error) {
     // Do some error handling.
@@ -177,7 +182,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Vascular Plant") {
         let options = {
-          radius: d["Biodiversity Count"] / 50,
+          radius: d["Biodiversity Count"] / 100,
           fillColor: "brown",
           color: "black",
           weight: 1,
@@ -199,7 +204,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Nonvascular Plant") {
         let options = {
-          radius: d["Biodiversity Count"] / 50,
+          radius: d["Biodiversity Count"] / 100,
           fillColor: "green",
           color: "black",
           weight: 1,
@@ -216,12 +221,14 @@ d3.json("/api/v1.0/plant_biodiv")
     });
 
     var nonvascularplantLayer = L.layerGroup(nonvascularplantMarkers);
+    vascularplantLayer.addTo(mapTwo)
+    nonvascularplantLayer.addTo(mapTwo)
 
     var overlayMaps2 = {
       VascularPlant: vascularplantLayer,
       NonnascularPlant: nonvascularplantLayer,
     };
-    L.control.layers(overlayMaps2).addTo(mapTwo);
+    L.control.layers(null, overlayMaps2).addTo(mapTwo);
   })
   .catch(function (error) {
     // Do some error handling.
@@ -313,13 +320,17 @@ d3.json("/api/v1.0/plant_biodiv")
     });
 
     var spiderscorpionlLayer = L.layerGroup(spiderscorpionMarkers);
+    insectLayer.addTo(mapThree);
+    slugsnailLayer.addTo(mapThree);
+    spiderscorpionlLayer.addTo(mapThree);
+
 
     var overlayMaps3 = {
       Insect: insectLayer,
       SlugandSnail: slugsnailLayer,
       SpiderandScorpion: spiderscorpionlLayer
     };
-    L.control.layers(overlayMaps3).addTo(mapThree);
+    L.control.layers(null, overlayMaps3).addTo(mapThree);
   })
   .catch(function (error) {
     // Do some error handling.
@@ -388,13 +399,16 @@ d3.json("/api/v1.0/plant_biodiv")
     });
 
     var algaeLayer = L.layerGroup(algaeMarkers);
+    fungiLayer.addTo(mapFour);
+    algaeLayer.addTo(mapFour);
+
 
 
     var overlayMaps3 = {
       Fungi: fungiLayer,
       Algae: algaeLayer
     };
-    L.control.layers(overlayMaps3).addTo(mapFour);
+    L.control.layers(null, overlayMaps3).addTo(mapFour);
   })
   .catch(function (error) {
     // Do some error handling.
