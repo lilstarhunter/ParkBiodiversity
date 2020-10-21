@@ -5,8 +5,8 @@ body {
 }
 
 #map {
-  width: 500px;
-  height: 500px;
+  width: 100px;
+  height: 100px;
   position: absolute;
   margin: 0;
   padding: 0;
@@ -24,6 +24,6 @@ body {
 
 .container.body-container {
   padding: 10px;
-  margin: 10px
+  margin: 10px;
   background-color: #FFFFFF;
 }

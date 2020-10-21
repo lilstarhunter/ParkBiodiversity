@@ -360,7 +360,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Fungi") {
         let options = {
-          radius: d["Biodiversity Count"] / 20,
+          radius: d["Biodiversity Count"] / 100,
           fillColor: "brown",
           color: "black",
           weight: 1,
@@ -382,7 +382,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Algae") {
         let options = {
-          radius: d["Biodiversity Count"]/2,
+          radius: d["Biodiversity Count"]/ 100,
           fillColor: "green",
           color: "black",
           weight: 1,
