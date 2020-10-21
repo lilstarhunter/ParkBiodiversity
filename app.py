@@ -91,7 +91,8 @@ def park_map():
     session = Session(engine)
     # return all results
     parks_data = session.query(Parks.ParkCode, Parks.ParkName,
-                               Parks.State, Parks.Acres, Parks.Latitude, Parks.Longitude).all()
+            Parks.State, Parks.Acres, Parks.Latitude, 
+            Parks.Longitude).all()
 
     session.close()
 

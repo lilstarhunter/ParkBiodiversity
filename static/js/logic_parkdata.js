@@ -77,10 +77,11 @@ d3.json("/api/v1.0/analysis").then(function (data) {
 
   var chartData = [trace];
   var layout = {
+    color : ['#f3cec9', '#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72'],
     yaxis: {
-      type: "category",
+      type: "Category",
     },
-    xaxis: { title: "Category" },
+    xaxis: { title: "Biodiversity" },
     title: "Park Biodiversity",
   };
   // console.log(result);
