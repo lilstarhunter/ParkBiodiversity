@@ -1,6 +1,6 @@
 var myMap = L.map("map", {
-  center: [45.52, -122.67],
-  zoom: 3,
+  center: [40.52, -122.67],
+  zoom: 4.5,
 });
 
 L.tileLayer(
@@ -46,7 +46,15 @@ d3.json("/api/v1.0/parkdata")
     parkData = data;
 
     data.forEach((d) => {
-      L.marker([d.Latitude, d.Longitude])
+      let options = {
+        radius: d.Acres / 200000,
+        fillColor: "blue",
+        color: "black",
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.6,
+      };
+      L.circleMarker([d.Latitude, d.Longitude], options)
         .bindPopup(`<h3>${d.ParkName}</h3>`)
         .addTo(myMap);
     });

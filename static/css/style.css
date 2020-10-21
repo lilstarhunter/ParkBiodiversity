@@ -15,7 +15,8 @@ body {
 }
 #mapOne,
 #mapTwo,
-#mapThree {
+#mapThree,
+#mapFour {
   width: 80%;
   height: 500px;
   margin-top: 10px;
