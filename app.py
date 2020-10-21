@@ -44,11 +44,6 @@ def parkdata():
     return render_template('parkdata.html')
 
 
-@app.route("/biodiversity")
-def biodiversity():
-    return render_template('biodiversity.html')
-
-
 @app.route("/biodiversity2")
 def biodiversity2():
     return render_template('biodiversity2.html')
