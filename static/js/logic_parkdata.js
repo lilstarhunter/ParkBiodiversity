@@ -16,27 +16,6 @@ L.tileLayer(
   }
 ).addTo(myMap);
 
-// function demoInfo(id) {
-//         d3.json("samples.json").then((data)=> {
-//             var metadata = data.metadata;
-//             console.log(metadata)
-//          var result = metadata.filter(meta => meta.id.toString() === id)[0];
-//          var demographicInfo = d3.select("#sample-metadata");
-
-//          demographicInfo.html("");
-
-//        // inject demographic data for the id and append the info to the panel html
-//           Object.entries(result).forEach((i) => {
-//               demographicInfo.append("h5").text(i[0].toUpperCase() + ": " + i[1] + "\n");
-//           });
-//     });
-// }
-
-// function optionChanged(id) {
-//   Plots(id);
-//   demoInfo(id);
-// }
-
 // global variable for park data
 var parkData = [];
 
@@ -63,14 +42,14 @@ d3.json("/api/v1.0/parkdata")
       var dropdown = d3.select("#selDataset");
       dropdown.append("option").text(d.ParkName).property("value");
     });
-    parkMapMarkers();
+    parkInfo();
   })
 
   .catch(function (error) {
     // Do some error handling.
   });
 
-function parkMapMarkers() {
+function parkInfo() {
   selectValue = d3.select("select").property("value");
   var result = parkData.filter((d) => d.ParkName === selectValue)[0];
   var info = d3.select("#state-info");
@@ -82,6 +61,62 @@ function parkMapMarkers() {
   });
 }
 
+var mergeData = [];
+d3.json("/api/v1.0/analysis").then(function (data) {
+  mergeData = data;
+  var homeResult = mergeData.filter((d) => d.ParkName === selectValue)[0];
+  // Grab variables from graphing
+  var categoryLabel = homeResult.Category;
+  var categoryValue = homeResult.BiodiversityCount;
+
+  var trace = {
+    x: categoryLabel,
+    y: categoryValue,
+    type: "bar",
+  };
+
+  var chartData = [trace];
+  var layout = {
+    yaxis: {
+      type: "category",
+    },
+    xaxis: { title: "Category" },
+    title: "Park Biodiversity",
+  };
+  // console.log(result);
+  Plotly.newPlot("bar", chartData, layout);
+
+  histogram();
+  // console.log(mergeData);
+});
+
+function histogram() {
+  selectValue = d3.select("select").property("value");
+  var result = mergeData.filter((d) => d.ParkName === selectValue);
+  // Grab variables from graphing
+  var categoryLabel = result.map((i) => i.Category);
+  var categoryValue = result.map((i) => i.BiodiversityCount);
+
+  var trace = {
+    x: categoryValue,
+    y: categoryLabel,
+    type: "bar",
+    orientation: "h",
+  };
+
+  var chartData = [trace];
+  var layout = {
+    yaxis: {
+      type: "category",
+    },
+    xaxis: { title: "Category" },
+    title: "Park Biodiversity",
+  };
+  // console.log(result);
+  Plotly.newPlot("bar", chartData, layout);
+}
+
 function optionChanged() {
-  parkMapMarkers();
+  parkInfo();
+  histogram();
 }
