@@ -1,88 +1,85 @@
-<!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, intial-scale=1.0" />
-    <!-- Our CSS -->
-    <link rel="stylesheet" type="text/css" href="static/css/style.css" />
 
-    <!-- CSS only -->
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-   
-   <!-- Leaflet CSS -->
-   <link
-     rel="stylesheet"
-     href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-     integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-     crossorigin=""
-   />
-    <title>National Parks Biodiversity</title>
-  </head>
-  <body style="background-color: rgb(243, 250, 241)">
-    <nav
-      style="background: rgb(180, 215, 162) !important"
-      class="navbar navbar-expand-lg navbar-light bg-secondary;col-xs-3 col-sm-6 col-md-12"
-    >
-      <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url_for('parkdata') }}"
-              >National Parks<span class="sr-only">(current)
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('biodiversity2') }}"
-              >Biodiversity</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('table') }}"
-              >Data Table</span></a>
-          </li>
+    <!DOCTYPE html>
+    <html lang="en-us">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, intial-scale=1.0" />
+      <!-- Our CSS -->
+      <link rel="stylesheet" type="text/css" href="static/css/style.css" />
+    
+      <!-- CSS only -->
+      <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    
+      <!-- JS, Popper.js, and jQuery -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
      
-          
-        </ul>
-      </div>
-    </nav>
-
-    <div
-      style="background: rgb(226, 238, 194);height: 280px;"
-      class="jumbotron jumbotron-fluid;col-xs-3 col-sm-6 col-md-12"
-    >
-      <div class="container;col-xs-3 col-sm-6 col-md-12">
-        <h1 style="font-size:180%;color:rgb(8, 88, 12);font-family:sans-serif;text-align:left;">Save the Animals!!</h1>
-        <p style="font-size:100%;color:rgb(3, 3, 3);font-family:verdana;text-align:justify;">
-            Biodiversity is the diversity of life across the ecosystem, species, and genetic level. The National Park Service is tasked with discovering and conserving biodiversity within national parks across the country. 
-            Increasing global threats such as deforestation, pollution, over-exploration, and climate change underlies rapid species loss in America and across the globe
-            <a href="https://www.scientificamerican.com/article/climate-change-is-becoming-a-top-threat-to-biodiversity/"><sup>1</sup></a>. Biodiversity is intrinsically valuable- every species has a value and right to exist. <br>
-            <hr>
-            This <strong>National Park Biodiversity Dashboard</strong> allows user’s to explore the current state of biodiversity within the national parks. 
-            What is the current status of biodiversity in our parks. With changing climate, scientists agree the ramifications on the planet's ecosystems and species is at risk.
-
-        </p>
-      </div>
-    </div>
-
-   
+        <!-- Leaflet CSS -->
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+          integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+          crossorigin=""
+        />
+    
+      </head>    
+     
+        <title>National Park Information</title>
+      </head>
+      <body class = "container-body" style="background-color: rgb(228, 234, 226)">
+        <nav
+          style="background: rgb(111, 81, 88
+          ) !important"
+          class="navbar navbar-expand-lg navbar-dark bg-secondary; col-sm-12"
+        >
+          <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('parkdata') }}"
+                  >National Parks<span class="sr-only">(current)
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('biodiversity2') }}"
+                  >Biodiversity</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('table') }}"
+                  >Data Table</span></a>
+              </li>
+         
+              
+            </ul>
+          </div>
+        </nav>
+        <div style="background: rgb(172, 169, 162)
+        !important" class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1 class="display-4">United States National Parks</h1>
+            <p class="lead"> Biodiversity is the diversity of life across the ecosystem, species, and genetic level. The National Park Service is tasked with discovering and conserving biodiversity within national parks across the country. 
+              Increasing global threats such as deforestation, pollution, over-exploration, and climate change underlies rapid species loss in America and across the globe
+              <a href="https://www.scientificamerican.com/article/climate-change-is-becoming-a-top-threat-to-biodiversity/"><sup>1</sup></a>. Biodiversity is intrinsically valuable- every species has a value and right to exist. <br>
+              <hr>
+              This <strong>National Park Biodiversity Dashboard</strong> allows user’s to explore the current state of biodiversity within the national parks. 
+              What is the current status of biodiversity in our parks. With changing climate, scientists agree the ramifications on the planet's ecosystems and species is at risk.</p>
+          </div>
+        </div> 
     
 <!-- National part images -->
             <div class="container-fluid;col-xs-3 col-sm-6 col-md-12">
@@ -129,11 +126,9 @@
               </div>
           </div>
         </div>
-    <br />
-    <br />
-    <br />
 
-<!-- second image -->
+<!-- 
+second image
     <div class="container;col-xs-3 col-sm-6 col-md-12">
       <div class="row">
         <div class="col-lg-6">
@@ -159,7 +154,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
