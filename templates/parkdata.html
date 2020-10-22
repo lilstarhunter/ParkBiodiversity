@@ -28,10 +28,11 @@
  
     <title>National Park Information</title>
   </head>
-  <body class = "container-body" style="background-color: rgb(243, 250, 241)">
+  <body class = "container-body" style="background-color: rgb(228, 234, 226)">
     <nav
-      style="background: rgb(180, 215, 162) !important"
-      class="navbar navbar-expand-lg navbar-light bg-secondary;col-xs-3 col-sm-6 col-md-12"
+      style="background: rgb(111, 81, 88
+      ) !important"
+      class="navbar navbar-expand-lg navbar-dark bg-secondary; col-sm-12"
     >
       <a class="navbar-brand" href="{{ url_for('home') }}">Home</a>
       <button
@@ -66,37 +67,48 @@
         </ul>
       </div>
     </nav>
-    <div class="container-fluid;col-xs-3 col-sm-6 col-md-12">
+    <div style="background: rgb(172, 169, 162)
+    !important" class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">United States National Parks</h1>
+        <p class="lead">On August 25, 1916, President Woodrow Wilson signed the act creating the National Park Service. The National Park Service protects over 84 million acres of wild landscapes and historic sites. Select a park below for more information.</p>
+      </div>
+    </div>
+  <div class="container-fluid">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <div class="card-header">
-          <h5 style="font-size:200%;color:rgb(42, 23, 109);font-family:Times;text-align:justify;">Select National Park:</h5>
+          <h2 style="font-size:200%;color:rgb(111, 81, 88); text-align:center;">Select National Park:</h5>
           <select class = "form-control" id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
         <div class="card bg">
           <div class="card-header">
-            <h2 style="font-size:200%;color:rgb(42, 23, 109) ;font-family:Times;text-align:justify;"><u>State Park Info:</u></h2>
+            <h5 style="font-size:200%;color:rgb(111, 81, 88) ;text-align:center;">State Park Info:</h2>
             </thead>
           </div>
           <div id="state-info" class="card-body"></div>
           <div class="card-footer"></div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-6">
         <div class="card-header">
-          <h2 style="font-size:300%;color:rgb(42, 23, 109);font-family:Times;text-align:center;">Biodiversity</h2>
-        <div id="bar"></div>
+          <h3 class="card-body" style="font-size:200%;color:rgb(111, 81, 88) ;text-align:center;">US National Parks</h3>
+            <div id="map-container">
+            <div id="map">
+            </div>
+        </div>
       </div>
-      </div>
-      <div class="col-md-3">
-          <h2 style="font-size:200%;color:rgb(42, 23, 109);font-family:Times;text-align:right;">US National Parks</h2>
-        <div id="map"></div>
       </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card-header">
+          <h3 class="card-body" style="font-size:300%;color:rgb(111, 81, 88) ;text-align:center;">Biodiversity</h3>
+          <div id="bar"></div>
+            <div class="card-footer"></div>
       </div>
     </div>
-    </div>
-
+  </div>
 
   </body>
   <!-- d3 JavaScript -->

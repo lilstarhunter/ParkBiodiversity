@@ -1,6 +1,6 @@
 var myMap = L.map("map", {
   center: [39.8283, -98.5795],
-  zoom: 4.5,
+  zoom: 2,
 });
 
 L.tileLayer(
@@ -27,7 +27,7 @@ d3.json("/api/v1.0/parkdata")
     data.forEach((d) => {
       let options = {
         radius: d.Acres / 100000,
-        fillColor: "blue",
+        fillColor: "rgb(111, 81, 88)",
         color: "black",
         weight: 1,
         opacity: 1,
@@ -70,22 +70,38 @@ d3.json("/api/v1.0/analysis").then(function (data) {
   var categoryValue = homeResult.BiodiversityCount;
 
   var trace = {
-    x: categoryLabel,
-    y: categoryValue,
+    x: categoryValue,
+    y: categoryLabel,
     type: "bar",
-  };
+    autosize: true,
+    orientation: "h",
+    marker: {
+      color: 'grey',
+      opacity: 0.9,
+      line: {
+        color: 'rgb(111, 81, 88)',
+        width: 6
+      }}}
 
+  var config = {responsive: true};
   var chartData = [trace];
   var layout = {
-    color : ['#f3cec9', '#e7a4b6', '#cd7eaf', '#a262a9', '#6f4d96', '#3d3b72'],
-    yaxis: {
-      type: "Category",
+    
+    xaxis: {
+      
+      title: "Number of Species"
     },
-    xaxis: { title: "Biodiversity" },
-    title: "Park Biodiversity",
+    yaxis: {
+      automargin: true,
+      type: "category",
+      zeroline: false,
+      gridwidth: 2
+    },
+    bargap :0.05
+
   };
   // console.log(result);
-  Plotly.newPlot("bar", chartData, layout);
+  Plotly.newPlot("bar", chartData, layout, config);
 
   histogram();
   // console.log(mergeData);
@@ -99,22 +115,38 @@ function histogram() {
   var categoryValue = result.map((i) => i.BiodiversityCount);
 
   var trace = {
+    
     x: categoryValue,
     y: categoryLabel,
     type: "bar",
-    orientation: "h",
+    marker: {
+      color: 'grey',
+      opacity: 0.9,
+      line: {
+        color: 'rgb(111, 81, 88)',
+        width: 6
+      }},
+      orientation: "h"
   };
+
+  var config = {responsive: true};
 
   var chartData = [trace];
   var layout = {
+    xaxis: {
+      
+      title: "Number of Species"
+    },
     yaxis: {
       type: "category",
-    },
-    xaxis: { title: "Category" },
-    title: "Park Biodiversity",
-  };
+      zeroline: false,
+      automargin: true,
+      gridwidth: 2,
+      bargap :0.05
+    }
+  }
   // console.log(result);
-  Plotly.newPlot("bar", chartData, layout);
+  Plotly.newPlot("bar", chartData, layout, config);
 }
 
 function optionChanged() {
