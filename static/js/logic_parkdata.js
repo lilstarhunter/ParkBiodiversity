@@ -1,5 +1,5 @@
 var myMap = L.map("map", {
-  center: [40.52, -122.67],
+  center: [39.8283, -98.5795],
   zoom: 4.5,
 });
 
@@ -26,7 +26,7 @@ d3.json("/api/v1.0/parkdata")
 
     data.forEach((d) => {
       let options = {
-        radius: d.Acres / 200000,
+        radius: d.Acres / 100000,
         fillColor: "blue",
         color: "black",
         weight: 1,
