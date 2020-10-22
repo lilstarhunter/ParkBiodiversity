@@ -5,8 +5,9 @@ body {
 }
 
 #map {
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  top: 0;
+  bottom: 0;
   position: absolute;
   margin: 0;
   padding: 0;
@@ -26,4 +27,22 @@ body {
   padding: 10px;
   margin: 10px;
   background-color: #FFFFFF;
+}
+
+.map-container {
+  height: 100%;
+  /* Fallback for vmin */
+  padding: 0px 1rem 1rem 1rem;
+  padding: 0px 1vmin 1vmin 1vmin;
+}
+
+.map-frame {
+  height: 100%;
+  width: 100%;
+/*   We use outline over border as has issues in some cases */
+  outline: 1px solid black;
+}
+
+#map-id { 
+  height: 100%;
 }
