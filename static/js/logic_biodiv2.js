@@ -182,7 +182,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Vascular Plant") {
         let options = {
-          radius: d["Biodiversity Count"] / 100,
+          radius: d["Biodiversity Count"] / 50,
           fillColor: "brown",
           color: "black",
           weight: 1,
@@ -204,7 +204,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Nonvascular Plant") {
         let options = {
-          radius: d["Biodiversity Count"] / 100,
+          radius: d["Biodiversity Count"] / 50,
           fillColor: "green",
           color: "black",
           weight: 1,
@@ -360,7 +360,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Fungi") {
         let options = {
-          radius: d["Biodiversity Count"] / 100,
+          radius: d["Biodiversity Count"] / 50,
           fillColor: "brown",
           color: "black",
           weight: 1,
@@ -382,7 +382,7 @@ d3.json("/api/v1.0/plant_biodiv")
     data.forEach((d) => {
       if (d.Category === "Algae") {
         let options = {
-          radius: d["Biodiversity Count"]/ 100,
+          radius: d["Biodiversity Count"]/ 50,
           fillColor: "green",
           color: "black",
           weight: 1,
